@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
-import { Actions } from 'react-native-router-flux'
+import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput, Platform, Alert, Keyboard } from 'react-native'
 
 export default class SignupScreen extends Component {
   goBack () {
-    Actions.pop()
   }
   sendData = async()=> {
+    const {username, password} = this.state;
+    const baseUrl = Platform.OS === 'android' ? 'http://10.0.2.2:5000/users/' : 'http://localhost:5000/users/';
+
       let response = await fetch(baseUrl + 'register', {
           method: 'POST',
           headers: {
@@ -54,7 +55,7 @@ export default class SignupScreen extends Component {
         <Text>{'\n'}</Text>
         <Image style={{ width: 140, height: 140 }} source={require('../images/icon-puppy.png')} />
         <Text style={{fontWeight: "bold"}}>Find your puppy's match!</Text>
-        <View style={styles.container}>
+        <View style={styles.inputContainer}>
             <TextInput style={styles.inputBox}
             onChangeText={(username) => this.setState({username})}
             underlineColorAndroid='rgba(0,0,0,0)' 
@@ -79,10 +80,6 @@ export default class SignupScreen extends Component {
                 <Text style={styles.buttonText} onPress={this.sendData} >Signup</Text>
             </TouchableOpacity>
         </View>
-        <View style={styles.signupTextCont}>
-          <Text style={styles.signupText}>Already have an account? </Text>
-          <TouchableOpacity onPress={this.goBack}><Text style={styles.signupButton}>Login</Text></TouchableOpacity>
-        </View>
       </View>
     )
   }
@@ -91,9 +88,14 @@ export default class SignupScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white'
+  },
+  inputContainer: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: 'white',
+    marginTop: 20
   },
   signupTextCont: {
     flexGrow: 1,
@@ -111,5 +113,27 @@ const styles = StyleSheet.create({
     color: '#000',
     fontSize: 16,
     fontWeight: 'bold'
+  },
+  inputBox: {
+    width: 300,
+    backgroundColor: '#eeeeee', 
+    borderRadius: 25,
+    paddingHorizontal: 16,
+    fontSize: 16,
+    color: '#000',
+    marginVertical: 10
+  },
+  button: {
+    width: 300,
+    backgroundColor: '#fff',
+    borderRadius: 25,
+    marginVertical: 10,
+    paddingVertical: 12
+  },
+  buttonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#00bfa5',
+    textAlign: 'center'
   }
 })

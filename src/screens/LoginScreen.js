@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, AsyncStorage, Keyboard, Image } from 'react-native'
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard, Image, Alert, Platform } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 
 export default class LoginScreen extends Component {
     constructor(props){        
@@ -12,7 +13,6 @@ export default class LoginScreen extends Component {
         } 
     }
   signup () {
-    //Actions.signup()
   }
 sendData = async()=> {
     const {username, password} = this.state;
@@ -31,15 +31,24 @@ sendData = async()=> {
             return response.json();   
             })
             .then(function(data){ 
-            that.state.userid = data.userId.toString()
-            that.state.token = data.token
-            const {username, password, userid, token} = that.state;
-            AsyncStorage.setItem('username', username);
-            AsyncStorage.setItem('password', password);
-            AsyncStorage.setItem('userid', userid);
-            AsyncStorage.setItem('token', token);
-            Keyboard.dismiss();
-            Actions.profile();
+              if (data.message = "Username or password is incorrect") {
+                Alert.alert(data.message,
+                    "Check your credentials.",
+                    [
+                    {text: 'Got it!'},
+                    ],
+                    {cancelable: true}
+                )
+              } else {
+                that.state.userid = data.userId.toString()
+                that.state.token = data.token
+                const {username, password, userid, token} = that.state;
+                AsyncStorage.setItem('username', username);
+                AsyncStorage.setItem('password', password);
+                AsyncStorage.setItem('userid', userid);
+                AsyncStorage.setItem('token', token);
+                Keyboard.dismiss();
+              }
         })
         .catch(error => {
             if (error) {
@@ -60,7 +69,7 @@ sendData = async()=> {
         <Text>{'\n'}</Text>
         <Image style={{ width: 140, height: 140 }} source={require('../images/icon-puppy.png')} />
         <Text style={{fontWeight: "bold"}}>Find your puppy's match!</Text>
-        <View style={styles.container}>
+        <View style={styles.inputContainer}>
             <TextInput style={styles.inputBox}
             onChangeText={(username) => this.setState({username})}
             underlineColorAndroid='rgba(0,0,0,0)' 
@@ -85,10 +94,6 @@ sendData = async()=> {
                 <Text style={styles.buttonText} onPress={this.sendData} >Login</Text>
             </TouchableOpacity>
         </View>
-        <View style={styles.signupTextCont}>
-          <Text style={styles.signupText}>Dont have an account yet? </Text>
-          <TouchableOpacity onPress={this.signup}><Text style={styles.signupButton}>Signup</Text></TouchableOpacity>
-        </View>
       </View>
     )
   }
@@ -97,9 +102,14 @@ sendData = async()=> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white'
+  },
+  inputContainer: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: 'white',
+    marginTop: 20
   },
   signupTextCont: {
     flexGrow: 1,

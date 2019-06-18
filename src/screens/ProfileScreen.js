@@ -56,7 +56,6 @@ export default class ProfileScreen extends Component {
     })
   }
   edit () {
-    //Actions.profileedit()
   }
   render () {
     AsyncStorage.getItem('picture')

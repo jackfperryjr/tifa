@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, StatusBar, Image, Keyboard, Text, TextInput, TouchableOpacity, Platform } from 'react-native';
-import { createBottomTabNavigator } from 'react-navigation';
 import AsyncStorage from '@react-native-community/async-storage';
 
 export default class ProfileEditScreen extends Component {
@@ -71,7 +70,6 @@ export default class ProfileEditScreen extends Component {
         
     }
     cancel () {
-        //Actions.profile()
       }
     render() {
         return (
