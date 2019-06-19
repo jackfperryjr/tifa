@@ -5,12 +5,25 @@ import SignupScreen from './src/screens/SignupScreen'
 import ProfileScreen from './src/screens/ProfileScreen'
 import MatchScreen from './src/screens/MatchScreen'
 import InboxScreen from './src/screens/InboxScreen'
+import ProfileEditScreen from './src/screens/ProfileEditScreen';
 
-const BottomNavigator = createBottomTabNavigator(
+const MainNavigator = createBottomTabNavigator(
   {
     Profile: { screen: ProfileScreen },
     Matches: { screen: MatchScreen },
     Inbox: { screen: InboxScreen },
+  },
+  {
+    tabBarOptions: {
+      activeTintColor: '#00bfa5',
+      inactiveTintColor: '#808080'
+    }
+  }
+)
+
+const ProfileNavigator = createBottomTabNavigator(
+  {
+    Edit: { screen: ProfileEditScreen },
   },
   {
     tabBarOptions: {
@@ -36,7 +49,8 @@ const AuthNavigator = createBottomTabNavigator(
 const Navigator = createSwitchNavigator(
   {
     Auth: AuthNavigator,
-    Home: BottomNavigator,
+    Home: MainNavigator,
+    Profile: ProfileNavigator
   }
 )
 

@@ -54,6 +54,7 @@ export default class ProfileEditScreen extends Component {
             });
 
         if (response.status >= 200 && response.status < 300) {
+            let that = this
             const {username, password} = this.state;
             AsyncStorage.setItem('username', username);
             AsyncStorage.setItem('password', password);
@@ -62,7 +63,7 @@ export default class ProfileEditScreen extends Component {
             AsyncStorage.setItem('age', age);
             AsyncStorage.setItem('dog', dog);
             Keyboard.dismiss();
-            //Actions.profile();
+            that.props.navigation.navigate('Home')
         } else {
             console.log(response.status)
             alert("Wrong username or password!");
@@ -70,6 +71,8 @@ export default class ProfileEditScreen extends Component {
         
     }
     cancel () {
+        let that = this
+        that.props.navigation.navigate('Home')
       }
     render() {
         return (

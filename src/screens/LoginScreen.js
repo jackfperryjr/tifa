@@ -12,11 +12,10 @@ export default class LoginScreen extends Component {
            token: ''    
         } 
     }
-  signup () {
-  }
 sendData = async()=> {
-    const {username, password} = this.state;
-    const baseUrl = Platform.OS === 'android' ? 'http://10.0.2.2:5000/users/' : 'http://localhost:5000/users/';
+    const {username, password} = this.state
+    const baseUrl = Platform.OS === 'android' ? 'http://10.0.2.2:5000/users/' : 'http://localhost:5000/users/'
+    const navigation = this.props.navigation
 
     let that = this
     let response = await fetch(baseUrl + 'authenticate', {
@@ -31,7 +30,7 @@ sendData = async()=> {
             return response.json();   
             })
             .then(function(data){ 
-              if (data.message = "Username or password is incorrect") {
+              if (data.message) {
                 Alert.alert(data.message,
                     "Check your credentials.",
                     [
@@ -42,12 +41,13 @@ sendData = async()=> {
               } else {
                 that.state.userid = data.userId.toString()
                 that.state.token = data.token
-                const {username, password, userid, token} = that.state;
-                AsyncStorage.setItem('username', username);
-                AsyncStorage.setItem('password', password);
-                AsyncStorage.setItem('userid', userid);
-                AsyncStorage.setItem('token', token);
-                Keyboard.dismiss();
+                const {username, password, userid, token} = that.state
+                AsyncStorage.setItem('username', username)
+                AsyncStorage.setItem('password', password)
+                AsyncStorage.setItem('userid', userid)
+                AsyncStorage.setItem('token', token)
+                Keyboard.dismiss()
+                that.props.navigation.navigate('Home')
               }
         })
         .catch(error => {

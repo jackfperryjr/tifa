@@ -37,7 +37,6 @@ export default class SignupScreen extends Component {
               ],
               {cancelable: true}
           )
-          Actions.login();
       } else {
           Alert.alert("Unable to register!",
               "Check your cellular or wifi connection.",
