@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, StatusBar, Text } from 'react-native'
+import { StyleSheet, View, Text, ScrollView } from 'react-native'
 
 export default class MatchScreen extends Component {
   render () {
     return (
       <View style={styles.container}>
-        <StatusBar
-          backgroundColor='#000'
-          barStyle='light-content'
-        />
-        <Text>MatchScreen</Text>
+          <View style={{ alignItems: 'center', backgroundColor: '#00bfa5', height: 35 }}>
+          </View>
+        <ScrollView>
+          <View style={{ alignItems: 'center'}}>
+            <Text style={{ fontSize: 20 }}>MatchScreen</Text>
+          </View>
+          </ScrollView>
       </View>
     )
   }

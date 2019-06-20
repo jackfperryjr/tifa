@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, ScrollView, TextInput, Image, Text, TouchableOpacity, Platform } from 'react-native'
+import { StyleSheet, View, ScrollView, TextInput, Image, Text, TouchableOpacity, Platform, Keyboard } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 
 export default class ProfileScreen extends Component {
@@ -71,12 +71,15 @@ export default class ProfileScreen extends Component {
         AsyncStorage.setItem('picture', that.state.picture);
     })
   }
-  edit () {
-    state.isEdit = true 
+  edit = () => {
+    let that = this
+    that.setState({isEdit: true})
     this.render
   }
-  cancel () {
-    state.isEdit = false
+  cancel = () => {
+    this.setState({
+      isEdit: false
+    })
     this.render
   }
   sendData = async()=> {
@@ -103,7 +106,7 @@ export default class ProfileScreen extends Component {
         AsyncStorage.setItem('age', age);
         AsyncStorage.setItem('dog', dog);
         Keyboard.dismiss();
-        that.props.navigation.navigate('Home')
+        that.cancel()
     } else {
         console.log(response.status)
         alert("Wrong username or password!");
@@ -115,15 +118,14 @@ export default class ProfileScreen extends Component {
         this.setState({ picture })
       })
     let isEdit = this.state.isEdit
-    if(isEdit == false) {
+    if(!isEdit) {
       return (
         <View style={styles.container}>
-          <View style={styles.blackBox}></View>
-          <ScrollView>
-            <View style={{ alignItems: 'center', backgroundColor: '#00bfa5', paddingTop: 10, paddingBottom: 10 }}>
+            <View style={{ alignItems: 'center', backgroundColor: '#00bfa5', paddingTop: 35 }}>
               {/* <Image style={{ width: 220, height: 220 }} source={{ uri: this.state.picture }} /> */}
               <Image style={{ width: 220, height: 220 }} source={require('../images/icon-user.png')} />
             </View>
+          <ScrollView>
             <View style={{ marginTop: 20, marginLeft: 10, marginRight: 10 }}>
               <Text style={styles.profileText}>Username: {this.state.username}</Text>
               <Text style={styles.profileText}>Name: {this.state.firstname} {this.state.lastname}</Text>
@@ -141,12 +143,11 @@ export default class ProfileScreen extends Component {
     } else {
       return (
         <View style={styles.container}>
-        <View style={styles.blackBox}></View>
+          <View style={{ alignItems: 'center', backgroundColor: '#00bfa5', paddingTop: 35 }}>
+              {/* <Image style={{ width: 220, height: 220 }} source={{ uri: this.state.picture }} /> */}
+              <Image style={{ width: 220, height: 220 }} source={require('../images/icon-user.png')} />
+          </View>
           <ScrollView>
-              <View style={{ alignItems: 'center' }}>
-                  {/* <Image style={{ width: 220, height: 220 }} source={{ uri: this.state.picture }} /> */}
-                  <Image style={{ width: 220, height: 220 }} source={require('../images/icon-user.png')} />
-              </View>
               <View style={{ alignItems: 'center', marginTop: 20, marginLeft: 10, marginRight: 10}}>
                   <TextInput style={styles.inputBox}
                   onChangeText={(username) => this.setState({username})}
@@ -220,10 +221,6 @@ export default class ProfileScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-  blackBox: {
-    backgroundColor: '#000',
-    height: 30,
-  },
   container: {
     flex: 1,
     backgroundColor: '#fff'
