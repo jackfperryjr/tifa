@@ -6,11 +6,13 @@ import LoginScreen from './src/screens/LoginScreen'
 import SignupScreen from './src/screens/SignupScreen'
 import ProfileScreen from './src/screens/ProfileScreen'
 import MatchScreen from './src/screens/MatchScreen'
+import SwipeScreen from './src/screens/SwipeScreen'
 import InboxScreen from './src/screens/InboxScreen'
 
 const MainNavigator = createBottomTabNavigator(
   {
     Profile: { screen: ProfileScreen },
+    Swipe: { screen: SwipeScreen},
     Matches: { screen: MatchScreen },
     Inbox: { screen: InboxScreen },
   },
@@ -23,7 +25,9 @@ const MainNavigator = createBottomTabNavigator(
 
         if (routeName === 'Profile') {
           iconName = `ios-contact`
-        } else if (routeName === 'Matches') {
+        } else if (routeName === 'Swipe') {
+          iconName = 'ios-body'
+        }else if (routeName === 'Matches') {
           iconName = `ios-contacts`
         } else if (routeName === 'Inbox') {
           iconName = `ios-mail`

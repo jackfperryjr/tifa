@@ -62,7 +62,7 @@ export default class ProfileScreen extends Component {
   }
   getRandomPicture () {
     let that = this
-    fetch('https://randomuser.me/api/?gender=female')
+    fetch('https://randomuser.me/api/')
     .then(function(response){ 
         return response.json();   
     })
