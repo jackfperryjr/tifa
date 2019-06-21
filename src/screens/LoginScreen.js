@@ -14,6 +14,9 @@ export default class LoginScreen extends Component {
     }
 sendData = async()=> {
     const {username, password} = this.state
+    // baseUrl is only being used for my DEV environment
+    // Android and iOS find the local server differently, too, hence the ternary conditional
+    // In PROD this would be whatever url the API is located at
     const baseUrl = Platform.OS === 'android' ? 'http://10.0.2.2:5000/users/' : 'http://localhost:5000/users/'
     const navigation = this.props.navigation
 

@@ -18,8 +18,21 @@ export default class SwipeScreen extends Component {
         picture: ''
     } 
   }
+  componentWillMount () {
+    AsyncStorage.getItem('picture')
+    .then((picture) => {
+        this.setState({ picture })
+    })
+  }
   componentDidMount () {
-    this.fetchData()
+    fetch('https://randomuser.me/api/')
+    .then(function(response){ 
+        return response.json();   
+    })
+    .then(function(data){ 
+        this.state.picture = data.results[0].picture.medium
+        AsyncStorage.setItem('picture', this.state.picture);
+    })
   }
   fetchData () {
     fetch('https://randomuser.me/api/')
@@ -32,22 +45,12 @@ export default class SwipeScreen extends Component {
     })
   }
   onSwipeLeft(gestureState) {
-    Alert.alert("Swipe!",
-        "You swiped left.",
-        [
-        {text: 'Ok!'},
-        ],
-        {cancelable: true}
-    )
+    console.log("Left swipe")
+    this.fetchData()
   }
   onSwipeRight(gestureState) {
-        Alert.alert("Swipe!",
-        "You swiped right.",
-        [
-        {text: 'Ok!'},
-        ],
-        {cancelable: true}
-    )
+    console.log("Right swipe")
+    this.fetchData()
   }
   onSwipe(gestureName, gestureState) {
     const {SWIPE_UP, SWIPE_DOWN, SWIPE_LEFT, SWIPE_RIGHT} = swipeDirections;

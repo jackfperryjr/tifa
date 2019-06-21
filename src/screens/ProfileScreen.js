@@ -121,7 +121,7 @@ export default class ProfileScreen extends Component {
     if(!isEdit) {
       return (
         <View style={styles.container}>
-            <View style={{ alignItems: 'center', backgroundColor: '#00bfa5', paddingTop: 35 }}>
+            <View style={{ alignItems: 'center', backgroundColor: '#D3D3D3', paddingTop: 35 }}>
               {/* <Image style={{ width: 220, height: 220 }} source={{ uri: this.state.picture }} /> */}
               <Image style={{ width: 220, height: 220 }} source={require('../images/icon-user.png')} />
             </View>
@@ -143,7 +143,7 @@ export default class ProfileScreen extends Component {
     } else {
       return (
         <View style={styles.container}>
-          <View style={{ alignItems: 'center', backgroundColor: '#00bfa5', paddingTop: 35 }}>
+          <View style={{ alignItems: 'center', backgroundColor: '#D3D3D3', paddingTop: 35 }}>
               {/* <Image style={{ width: 220, height: 220 }} source={{ uri: this.state.picture }} /> */}
               <Image style={{ width: 220, height: 220 }} source={require('../images/icon-user.png')} />
           </View>

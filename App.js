@@ -37,8 +37,12 @@ const MainNavigator = createBottomTabNavigator(
       }
     }),
     tabBarOptions: {
-      activeTintColor: '#00bfa5',
-      inactiveTintColor: '#808080'
+      activeTintColor: '#fff',
+      inactiveTintColor: '#C0C0C0',
+      style:{
+        backgroundColor: '#00bfa5',
+        borderTopColor:'#00bfa5'
+      }
     }
   }
 )
@@ -66,7 +70,10 @@ const AuthNavigator = createBottomTabNavigator(
     }),
     tabBarOptions: {
       activeTintColor: '#00bfa5',
-      inactiveTintColor: '#808080'
+      inactiveTintColor: '#808080',
+      style:{
+        borderTopColor:'#fff'
+      }
     }
   }
 )
